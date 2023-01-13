@@ -27,8 +27,8 @@ public class RegisterRequest {
 	private  String email;
 	
 	@NotBlank(message = "Password can not be blank.")
-	//@Size(min = 6,message="Password must contain 6 characters.")
-	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\\\S+$).{6,8}$", message="Invalid Password.")
+	@Size(min = 6,message="Password must contain 6 characters.")
+	//@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\\\S+$)$", message="Invalid Password.")
 	private String password;
 	
 	private Set<String> role;

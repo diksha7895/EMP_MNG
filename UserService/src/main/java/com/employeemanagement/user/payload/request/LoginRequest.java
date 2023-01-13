@@ -12,8 +12,8 @@ public class LoginRequest {
 	private String username;
 	
 	@NotBlank(message = "Password can not be blank.")
-	//@Size(min = 6,message="Password must contain 6 characters.")
-	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\\\S+$).{6,8}$", message="Invalid Password.")
+	@Size(min = 6,message="Password must contain 6 characters.")
+	//@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\\\S+$).{6,8}$", message="Invalid Password.")
 	private String password;
 
 
