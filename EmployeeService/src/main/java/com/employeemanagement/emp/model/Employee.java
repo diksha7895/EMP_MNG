@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
 public class Employee {
 
 	  @Id
-	  @GeneratedValue(strategy = GenerationType.AUTO)
+	  @GeneratedValue(strategy = GenerationType.IDENTITY)
 	  private long id;
 
 		@NotBlank
@@ -27,9 +27,7 @@ public class Employee {
 		@Size(min = 2,max = 15)
 		private String lastname;
 		
-		@NotBlank
-		@Size(min = 2,max = 15)
-		private String username;
+		
 		
 		@NotBlank
 		@Size(max = 50)
@@ -38,23 +36,22 @@ public class Employee {
 		
 		private double salary;
 		
-		private List<Integer> jobid;
+		
 
 		public Employee() {
 			
 		}
 
 		public Employee(long id,String firstname,
-				String lastname,String username,
-				String email, double salary,List<Integer> jobid) {
+				String lastname,
+				String email, double salary) {
 			super();
 			this.id = id;
 			this.firstname = firstname;
 			this.lastname = lastname;
-			this.username = username;
 			this.email = email;
 			this.salary = salary;
-			this.jobid = jobid;
+			
 		}
 		
 
@@ -82,13 +79,7 @@ public class Employee {
 			this.lastname = lastname;
 		}
 
-		public String getUsername() {
-			return username;
-		}
-
-		public void setUsername(String username) {
-			this.username = username;
-		}
+		
 
 		public String getEmail() {
 			return email;
@@ -106,18 +97,12 @@ public class Employee {
 			this.salary = salary;
 		}
 
-		public List<Integer> getJobid() {
-			return jobid;
-		}
-
-		public void setJobid(List<Integer> jobid) {
-			this.jobid = jobid;
-		}
+		
 
 		@Override
 		public String toString() {
-			return "Employee [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", username="
-					+ username + ", email=" + email + ", salary=" + salary + ", jobid=" + jobid + "]";
+			return "Employee [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname +
+					", email=" + email + ", salary=" + salary + "]";
 		}
 
 		
