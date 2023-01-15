@@ -31,7 +31,7 @@ public class RegisterRequest {
 	//@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\\\S+$)$", message="Invalid Password.")
 	private String password;
 	
-	private Set<String> role;
+	//private Set<String> role;
 
 
 	public String getUsername() {
@@ -74,13 +74,21 @@ public class RegisterRequest {
 		this.password = password;
 	}
 
-	public Set<String> getRole() {
-		return role;
-	}
 
-	public void setRole(Set<String> role) {
-		this.role = role;
+//	public Set<String> getRole() {
+//		return role;
+//	}
+//
+//	public void setRole(Set<String> role) {
+//		this.role = role;
+//	}
+	
+	@Override
+	public String toString() {
+		return "RegisterRequest [username=" + username + ", firstname=" + firstname + ", lastname=" + lastname
+				+ ", email=" + email + ", password=" + password + "]";
 	}
+	
 	
 	
 }

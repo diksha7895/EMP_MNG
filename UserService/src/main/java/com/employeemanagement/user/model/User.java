@@ -161,11 +161,6 @@ public class User {
 				+ ", email=" + email + ", password=" + password + ", roles=" + roles + "]";
 	}
 
-
-	
-	
-	
-	
 	
 	
 }

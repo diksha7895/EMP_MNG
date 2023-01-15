@@ -3,9 +3,9 @@ package com.employeemanagement.user.model;
 public enum Roles {
 	ROLE_ADMIN,
     ROLE_MANAGER,
-    ROLE_1,
-    ROLE_2,
-    ROLE_3,
-    ROLE_4,
-    ROLE_5
+    ROLE_TRAINEE,
+    ROLE_TESTER,
+    ROLE_DEVELOPER,
+    ROLE_ENGINEER,
+    ROLE_ANALYST
 }
