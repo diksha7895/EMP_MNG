@@ -12,6 +12,7 @@ import { UpdateEmployeeComponent } from './update-employee/update-employee.compo
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
@@ -20,7 +21,7 @@ const routes: Routes = [
   { path: 'user', component: BoardUserComponent },
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
-  { path: 'update/:id', component: UpdateEmployeeComponent },
+  { path: 'update', component: UpdateEmployeeComponent },
   { path: 'details/:id', component: EmployeeDetailsComponent },
   { path: 'employees', component: EmployeeListComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' }

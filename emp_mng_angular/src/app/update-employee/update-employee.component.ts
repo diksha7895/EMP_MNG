@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../_model/employee';
-import { EmployeeService } from '../_services/employee.service';
+import { TokenStorageService } from '../_services/token-storage.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-update-employee',
@@ -11,43 +12,68 @@ import { EmployeeService } from '../_services/employee.service';
 export class UpdateEmployeeComponent implements OnInit {
 
   
-  employee : any = {
-    empid: null,
-    firstName: null,
-    lastName: null,
-    salary: null,
-    emailId: null
+  form : any = {
+    firstname: null,
+    lastname: null,
+    email: null,
+    role: null
     } ;
 
-  constructor(private route: ActivatedRoute,private router: Router,
-    private employeeService: EmployeeService) { }
+  userid: any | null = '';
+  id: any | null = '';
+
+  isUpdateDone = false;
+  isSuccessful = false;
+  isUpdateFailed = false;
+  errorMessage = '';
+  
+
+  constructor(private route: ActivatedRoute,private router: Router,private tokenService: TokenStorageService,
+    private userService: UserService) { }
 
   ngOnInit() {
-    this.employee = new Employee();
-
-    this.employee.empid = this.route.snapshot.params['empid'];
+    this.userid = this.route.snapshot.params['userid'];
+    this.id = this.tokenService.getUser().id;
     
-    this.employeeService.getEmployee(this.employee.empid)
-      .subscribe(data => {
-        console.log(data)
-        this.employee = data;
-      }, error => console.log(error));
-  }
-
-  updateEmployee() {
-    this.employeeService.updateEmployee(this.employee.empid, this.employee)
-      .subscribe(data => {
-        console.log(data);
-        this.employee = new Employee();
-        this.gotoList();
-      }, error => console.log(error));
+    // this.employeeService.getEmployee(this.employee.empid)
+    //   .subscribe(data => {
+    //     console.log(data)
+    //     this.employee = data;
+    //   }, error => console.log(error));
   }
 
   onSubmit() {
     this.updateEmployee();    
   }
 
-  gotoList() {
-    this.router.navigate(['/employees']);
+  updateEmployee() {
+    const { firstname, lastname, email, role } = this.form;
+    let roles = [];
+    roles.push(role);
+    this.userService.updateUser(firstname,lastname,email,role,this.userid).subscribe(
+      response => {
+        console.log(response);
+        this.isUpdateDone=true;
+        this.isSuccessful=true;
+        this.isUpdateFailed=false;
+        this.form = '';
+      },
+      err => {
+        console.log(err);
+        this.errorMessage = err.error.message;
+        this.isUpdateFailed=true;
+        this.isUpdateDone=false;
+        this.isSuccessful=false;
+      }
+    )
+    // this.employeeService.updateEmployee(this.employee.empid, this.employee)
+    //   .subscribe(data => {
+    //     console.log(data);
+    //     this.employee = new Employee();
+    //     this.gotoList();
+    //   }, error => console.log(error));
   }
+  // gotoList() {
+  //   this.router.navigate(['/employees']);
+  // }
 }

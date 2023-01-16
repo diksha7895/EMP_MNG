@@ -1,21 +1,138 @@
-<h3>Update Employee</h3>
-<div style="width: 400px;">
-  <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="name">First Name</label>
-      <input type="text" class="form-control" id="firstName" required [(ngModel)]="employee.firstName" name="firstName">
+<div class="col-md-12">
+  <div class="card card-container">
+    
+    <form
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate
+    >
+      <h3> Update Employee User </h3>
+      <div class="form-group">
+        <label for="firstname">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          name="firstname"
+          [(ngModel)]="form.firstname"
+          required
+          placeholder="Enter first name"
+          minlength="2"
+          maxlength="15"
+          #firstname="ngModel"
+        />
+        <div class="alert-danger" *ngIf="firstname.errors && f.submitted">
+          <div *ngIf="firstname.errors.required">First name is required</div>
+          <div *ngIf="firstname.errors.minlength">
+            First name must be at least 2 characters
+          </div>
+          <div *ngIf="firstname.errors.maxlength">
+            First name must be at most 15 characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastname">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          name="lastname"
+          [(ngModel)]="form.lastname"
+          required
+          placeholder="Enter last name"
+          minlength="2"
+          maxlength="15"
+          #lastname="ngModel"
+        />
+        <div class="alert-danger" *ngIf="lastname.errors && f.submitted">
+          <div *ngIf="lastname.errors.required">Last name is required</div>
+          <div *ngIf="lastname.errors.minlength">
+            Last name must be at least 2 characters
+          </div>
+          <div *ngIf="lastname.errors.maxlength">
+            Last name must be at most 15 characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          name="email"
+          [(ngModel)]="form.email"
+          required
+          placeholder="Enter email id"
+          email
+          pattern="[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+          #email="ngModel"
+        />
+        <div class="alert-danger" *ngIf="email.errors && f.submitted">
+          <div *ngIf="email.errors.required">Email is required</div>
+          <div *ngIf="email.errors.email">
+            Email must be a valid email address
+          </div>
+        </div>
+      </div>
+      <div class ="form-group">
+        <label for="role">Role</label>
+        <div class="role">
+          <input
+              type="radio"
+              name="role"
+              value="trainee"
+              [(ngModel)]="form.role" required
+              #role="ngModel"
+            /> Trainee </div>
+        <div class="role">
+            <input
+              type="radio"
+              name="role"
+              value="tester"
+              [(ngModel)]="form.role" required
+              #role="ngModel"
+              /> Tester </div>
+        <div class="role">
+            <input
+              type="radio"
+              name="role"
+              value="developer"
+              [(ngModel)]="form.role" required
+              #role="ngModel"
+              /> Developer </div>
+        <div class="role">
+            <input
+              type="radio"
+              name="role"
+              value="engineer"
+              [(ngModel)]="form.role" required
+              #role="ngModel"
+             /> Engineer </div>
+        <div class="role">
+            <input
+              type="radio"
+              name="role"
+              value="analyst"
+              [(ngModel)]="form.role" required
+              #role="ngModel"
+             /> Analyst </div>     
+          <div class="alert-danger" *ngIf="role.errors && f.submitted">
+                  <div *ngIf="role.errors.required">Select role</div>
+                </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">Save</button>
+      </div>
+      <div class="alert alert-warning" *ngIf="f.submitted && isUpdateFailed">
+        Update failed!<br />{{ errorMessage }}
+      </div>
+      
+    </form>
+
+    <div class="alert alert-success" *ngIf="isSuccessful">
+      Employee user updated.
     </div>
 
-    <div class="form-group">
-      <label for="name">Last Name</label>
-      <input type="text" class="form-control" id="lastName" required [(ngModel)]="employee.lastName" name="lastName">
-    </div>
-
-    <div class="form-group">
-      <label for="name">Email Id</label>
-      <input type="text" class="form-control" id="emailId" required [(ngModel)]="employee.emailId" name="emailId">
-    </div>
-
-    <button type="submit" class="btn btn-success">Submit</button>
-  </form>
+    
+  </div>
 </div>

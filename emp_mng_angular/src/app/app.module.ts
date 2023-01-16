@@ -17,6 +17,7 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
+import { JobComponent } from './job/job.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { UpdateEmployeeComponent } from './update-employee/update-employee.compo
     BoardUserComponent,
     EmployeeListComponent,
     EmployeeDetailsComponent,
-    UpdateEmployeeComponent
+    UpdateEmployeeComponent,
+    JobComponent
   ],
   imports: [
     BrowserModule,
