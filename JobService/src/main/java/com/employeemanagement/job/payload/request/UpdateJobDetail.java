@@ -6,8 +6,8 @@ import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class JobDetail {
-	
+public class UpdateJobDetail {
+
 	@NotBlank
 	private String jobname;
 	
@@ -20,6 +20,21 @@ public class JobDetail {
 	 private Double profit;
 
 	 private String applicableRole;
+
+	public UpdateJobDetail() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public UpdateJobDetail(@NotBlank String jobname, LocalTime starttime, LocalTime endtime, Double profit,
+			String applicableRole) {
+		super();
+		this.jobname = jobname;
+		this.starttime = starttime;
+		this.endtime = endtime;
+		this.profit = profit;
+		this.applicableRole = applicableRole;
+	}
 
 	public String getJobname() {
 		return jobname;
@@ -60,13 +75,6 @@ public class JobDetail {
 	public void setApplicableRole(String applicableRole) {
 		this.applicableRole = applicableRole;
 	}
-
-	@Override
-	public String toString() {
-		return "JobDetail [jobname=" + jobname + ", starttime=" + starttime + ", endtime=" + endtime + ", profit="
-				+ profit + ", applicableRole=" + applicableRole + "]";
-	}
 	 
 	 
-
 }
