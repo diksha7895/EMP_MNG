@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.employeemanagement.user.jwt.JwtUtils;
 import com.employeemanagement.user.jwt.UserDetailsImpl;
 import com.employeemanagement.user.model.User;
+import com.employeemanagement.user.payload.request.JobDetail;
 import com.employeemanagement.user.payload.request.LoginRequest;
 import com.employeemanagement.user.payload.request.RegisterRequest;
 import com.employeemanagement.user.payload.request.UpdateUserDetail;
@@ -34,7 +37,7 @@ import com.employeemanagement.user.payload.response.MessageResponse;
 import com.employeemanagement.user.repository.UserRepository;
 import com.employeemanagement.user.service.UserService;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/empmng")
 public class AuthController {
@@ -54,7 +57,7 @@ public class AuthController {
 	@Autowired
 	private UserService userService;
 	
-	String updateUser= "http://localhost:8082/empmng/manager/";
+	//String updateUser= "http://localhost:8082/empmng/manager/";
 	
 	//new user registration
 	
@@ -114,11 +117,11 @@ public class AuthController {
 	
 	
 
-	//update user details for users & emp table
+	//update user details for users & employee table
 	@PostMapping("/updateUser/{id}")
 	public ResponseEntity<?> updateUser(@Valid @RequestBody UpdateUserDetail userDetail,
 			@PathVariable(value = "id") Long id) throws Exception{
-		System.out.println("Inside updateUser : "+id);
+		System.out.println("Inside updateUser in AuthController : "+id);
 		Object updateUser = userService.updateUser(userDetail, id);
 		Object updateEmp = userService.updateEmployee(userDetail, id);
 		System.out.println("Inside updateUser : updateUser "+updateUser);
@@ -130,7 +133,7 @@ public class AuthController {
 		return ResponseEntity.ok(new MessageResponse("User Updated Successfully."));
 	}
 	
-	//delete user details from users & emp table
+	//delete user details from users & employee table
 	@DeleteMapping("/deleteUser/{id}")
 	public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long id) throws Exception{
 		
@@ -183,4 +186,30 @@ public class AuthController {
            
          return ResponseEntity.of(Optional.of(employee));
      }
+ 	 
+ 	 //for Job module
+ 	 @PostMapping("/createJob")
+ 	 public ResponseEntity<?> createAJob(@RequestBody JobDetail jobDetail) throws Exception{
+		if (jobDetail == null)
+			return ResponseEntity.badRequest().body(new MessageResponse("Wrong input"));	
+	
+		return userService.createJob(jobDetail);
+		
+ 	 }
+ 	 
+ 	 @PostMapping("/modifyJob/{id}")
+ 	public ResponseEntity<?> modifyJob(@Valid @RequestBody JobDetail jobDetail,
+ 			@PathVariable(value = "id") Long id) throws Exception{
+ 		
+ 		Object updatedJob = userService.modifyJob(jobDetail, id);
+ 		
+ 		if(updatedJob == null) {
+ 			return ResponseEntity.badRequest().body("Job details is not updated");
+ 		}
+ 		
+ 		return ResponseEntity.ok(new MessageResponse("Job details updated successfully."));
+ 	}
+ 	 
+ 	 
+ 	 
 }

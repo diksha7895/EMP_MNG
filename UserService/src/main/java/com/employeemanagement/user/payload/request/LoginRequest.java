@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 public class LoginRequest {
 	
 	@NotBlank(message = "User name is mandatory.")
-	@Size(min = 2,max = 15,message="User name must be between 2 - 15 characters.")
+	@Size(min = 3,max = 15,message="User name must be between 3 - 15 characters.")
 	private String username;
 	
 	@NotBlank(message = "Password can not be blank.")
