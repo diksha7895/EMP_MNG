@@ -3,33 +3,31 @@ package com.employeemanagement.emp.payload.request;
 import java.util.Set;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public class EmployeeDetail {
+public class UpdateEmployeeDetail {
 
-	@NotBlank
 	@Size(min = 2,max = 15)
 	private String firstname;
 	
-	@NotBlank
+	
 	@Size(min = 2,max = 15)
 	private String lastname;
 	
-	@NotBlank
-	@Size(min = 2,max = 15)
+	
+	@Size(min = 3,max = 15)
 	private String username;
 	
-	@NotBlank
+	
 	@Size(max = 50)
 	@Email
     private String email;
 	
-	@NotBlank(message = "Password can not be blank.")
+	
 	@Size(min = 6,message="Password must contain 6 characters.")
 	private String password;
 	
-	private Set<String> role;
+	 private Set<String> role;
 
 	public String getFirstname() {
 		return firstname;
@@ -81,12 +79,11 @@ public class EmployeeDetail {
 
 	@Override
 	public String toString() {
-		return "EmployeeDetail [firstname=" + firstname + ", lastname=" + lastname + ", username=" + username
+		return "UpdateEmployeeDetail [firstname=" + firstname + ", lastname=" + lastname + ", username=" + username
 				+ ", email=" + email + ", password=" + password + ", role=" + role + "]";
 	}
-
-	
-	
+	 
+	 
 	
 	
 }

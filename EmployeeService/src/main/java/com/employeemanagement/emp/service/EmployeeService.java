@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.employeemanagement.emp.model.Employee;
 import com.employeemanagement.emp.payload.request.EmployeeDetail;
+import com.employeemanagement.emp.payload.request.UpdateEmployeeDetail;
 import com.employeemanagement.emp.repository.EmployeeRepository;
 
 
@@ -30,13 +31,14 @@ public class EmployeeService {
 	
 	//getting employee details by id
 	public Employee getEmployeeById(Long id) {
-		Employee employee = null;
+		Optional<Employee> employee = null;
 		try {
-			employee = getAllEmployees().stream().filter(e->e.getId()== id).findFirst().get();
+			employee = employeeRepository.findById(id);
+			//employee = getAllEmployees().stream().filter(e->e.getId()== id).findFirst().get();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return employee;
+		return employee.get();
 	}
 	
 	//create employee
@@ -55,7 +57,7 @@ public class EmployeeService {
 		
 	}
 	
-	public boolean updateEmployee(Long employeeId, @Valid EmployeeDetail employeeDetails) {
+	public boolean updateEmployee(Long employeeId, @Valid UpdateEmployeeDetail employeeDetails) {
 		Optional<Employee> employee = employeeRepository.findById(employeeId);
 		
 		if(Boolean.TRUE.equals(employee.isPresent() && employeeDetails != null)) {

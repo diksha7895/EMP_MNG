@@ -8,20 +8,22 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.employeemanagement.emp.model.Employee;
 import com.employeemanagement.emp.payload.request.EmployeeDetail;
+import com.employeemanagement.emp.payload.request.UpdateEmployeeDetail;
 import com.employeemanagement.emp.service.EmployeeService;
 import com.employeemanagement.emp.payload.response.MessageResponse;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/empmng")
 public class EmployeeController {
@@ -67,7 +69,7 @@ public class EmployeeController {
 	 	 
 	 	@PostMapping("/updateEmployee/{id}")
 	    public ResponseEntity<?> updateEmployee(@PathVariable(value = "id") Long employeeId,
-	         @Valid @RequestBody EmployeeDetail employeeDetails) throws Exception {
+	         @Valid @RequestBody UpdateEmployeeDetail employeeDetails) throws Exception {
 	 		if(employeeId == null) {
 	 			return ResponseEntity.badRequest().body("Invalid employee id");
 	 		}

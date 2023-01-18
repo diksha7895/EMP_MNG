@@ -1,7 +1,5 @@
 package com.employeemanagement.emp.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,6 +39,18 @@ public class Employee {
 		public Employee() {
 			
 		}
+		
+		
+
+		public Employee(String firstname,
+				String lastname,String email) {
+			super();
+			this.firstname = firstname;
+			this.lastname = lastname;
+			this.email = email;
+		}
+
+
 
 		public Employee(long id,String firstname,
 				String lastname,
