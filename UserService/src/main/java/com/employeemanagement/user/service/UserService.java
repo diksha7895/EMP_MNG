@@ -327,10 +327,13 @@ public class UserService {
 	}
 
 
-	public Object processJob(Long jobid, Long userid, String status, String role) {
-		ResponseEntity<?> processJob = restClient.processJob("processJobs/"+ jobid + "/"+ userid + "/"+ status + "/" + role);
+	public Object processJob(Long jobid, Long userid, String role, String status) {
+		System.out.println("Inside processJob in UserService : userid : "+userid+"jobid :"+jobid);
+		ResponseEntity<?> processJob = restClient.processJob("processJobs/"+ jobid + "/"+ userid + "/"+ role + "/" + status);
 		if(processJob!=null) {
+			System.out.println("Inside processJob in UserService inside if processJob :"+processJob);
 			return processJob;
+			
 		}
 		return ResponseEntity.badRequest().body("Job not processed.. ERROR : selected job not is not applicable for your role.");
 		

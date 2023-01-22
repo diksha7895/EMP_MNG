@@ -50,7 +50,7 @@ export class CreatejobComponent implements OnInit {
       this.isSuccessful = true;
        setTimeout(() => {
          window.location.reload();
-       }, 4000);
+       }, 3000);
     },
     error=> {
       this.isSuccessful = false;

@@ -15,6 +15,9 @@ export class JobComponent implements OnInit {
   showStatus: boolean = false;
   errorMessage ="";
   showMessage ="";
+  isCompleted = false;
+  isStarted = false;
+  isAborted = false;
   currentUserRole : any | undefined;
   currentUser: any;
   empId: any;
@@ -97,6 +100,7 @@ updateMessage ="";
 
    }
 
+  //  for admin access functionality
    doEdit(job : any){
     this.jobs.forEach(e =>{
        e.isChange=false;
@@ -135,12 +139,16 @@ updateMessage ="";
     
   }
 
+  // for user access functionality
   onAllocate(item: any) {
     this.jobs.forEach(element => {
       element.isPresent = false;
     });
-
-    let userid: any = this.currentUser.id;
+    this.currentUser = this.token.getUser();
+    console.log(this.currentUser.id);
+    
+    let userid = this.currentUser.id;
+    console.log("this.currentUser.id"+userid);
     let jobid: any = item.id;
     let role: any = this.currentUser.roles[0];
     let status: string = 'Allocate';
@@ -148,14 +156,15 @@ updateMessage ="";
     this.userService.allocateJob(userid, jobid, role, status).subscribe(
       data => {
         console.log(data);
-        //alert("ok");
+       this.isStarted = true;
         item.isPresent = true;
-        setTimeout(function () {
-          window.location.reload();
-        }, 4000);
+         setTimeout(function () {
+           window.location.reload();
+         }, 3000);
       },
       err => {
         console.log(err.error);
+        this.isStarted = false;
         const myObj = JSON.parse(err.error);
       }
     )
@@ -174,12 +183,15 @@ updateMessage ="";
     this.userService.completeJob(userid, jobid, role, status).subscribe(
       data => {
         console.log(data);
+        // alert("Job Completed..")
+        this.isCompleted = true;
         setTimeout(function () {
           window.location.reload();
-        }, 4000);
+        }, 3000);
       },
       err => {
         console.log(err.error);
+        this.isCompleted = false;
         const myObj = JSON.parse(err.error);
       }
     )
@@ -199,13 +211,15 @@ updateMessage ="";
     this.userService.abortJob(userid, jobid, role, status).subscribe(
       data => {
         console.log(data);
+        this.isAborted = true;
         job.isPresent = false;
         setTimeout(function () {
           window.location.reload();
-        }, 4000);
+        }, 3000);
       },
       err => {
         console.log(err.error);
+        this.isAborted = false;
         const myObj = JSON.parse(err.error);
       }
     )

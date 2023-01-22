@@ -94,17 +94,17 @@ export class UserService {
     }
 
     allocateJob(userid: any, jobid: any, role: any, status: string) {
-      return this.http.get(API_URL+'processJobs/'+jobid+userid+status+role,{
+      return this.http.get(API_URL+'processJobs/'+jobid+'/'+userid+'/'+status+'/'+role,{
          responseType: 'text' });
     }
 
     abortJob(userid: any, jobid: any, role: any, status: string) {
-      return this.http.get(API_URL+'processJobs/'+jobid+userid+status+role,{ 
+      return this.http.get(API_URL+'processJobs/'+jobid+'/'+userid+'/'+status+'/'+role,{ 
         responseType: 'text' });
     }
   
     completeJob(userid: any, jobid: any, role: any, status: string) {
-      return this.http.get(API_URL+'processJobs/'+jobid+userid+status+role,
+      return this.http.get(API_URL+'processJobs/'+jobid+'/'+userid+'/'+status+'/'+role,
        { responseType: 'text' });
     }
 }

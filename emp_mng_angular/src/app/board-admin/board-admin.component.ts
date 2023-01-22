@@ -46,7 +46,6 @@ form: any = {
        // this.users.forEach(e => console.log(e.roles[0].name));
       },
       err => {
-        //this.content = JSON.parse(err.error).message;
         console.log(err);
         this.errorMessage = err.err;
         alert("No user found.");
@@ -83,7 +82,7 @@ form: any = {
           this.isUserUpdated=false;
           this.updateMessage="";
           window.location.reload();
-        },5000);
+        },3000);
       },
       err => {
         //this.content = JSON.parse(err.error).message;

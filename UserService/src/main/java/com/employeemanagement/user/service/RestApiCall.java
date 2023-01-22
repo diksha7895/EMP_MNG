@@ -83,7 +83,9 @@ public class RestApiCall {
 
 	public ResponseEntity<?> processJob(String url) {
 		String uri = JOB_URL + url;
+		System.out.println("Inside processJob in RestApiCall : url : "+uri);
 		String processJobResult = restTemplate.getForObject(uri,String.class);
+		System.out.println("processJobResult in RestApiCall : "+processJobResult);
 		return ResponseEntity.ok(processJobResult);
 	}
 	

@@ -84,8 +84,10 @@ public class JobService {
 	}
 
 
-	public ResponseEntity<?> processJob(Long jobid, Long userid, String status, String role) {
+	public ResponseEntity<?> processJob(Long jobid, Long userid, String status,String role) {
+		System.out.println("Inside proceeJob jonService :");
 		 Optional<Job> job = jobRepository.findById(jobid);
+		 System.out.println("Optional<Job> job :"+job);
 		 if (job.isPresent() && role!=null && !role.isEmpty() && job.get().getApplicableRole().equals(role)) {
 	            if(status !=null && !status.isEmpty() && userid !=null) {
 	                switch (status) {

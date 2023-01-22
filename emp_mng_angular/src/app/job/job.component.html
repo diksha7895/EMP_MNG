@@ -71,7 +71,7 @@
                 </div>
               </td>
               <td scope="row" *ngIf="showStatus">{{job.status}}</td> 
-              <td scope="row" style="width: 15%;" class="text-center">
+              <td scope="row" style="width: 20%;" class="text-center">
                 <span>
                   <!-- for admin role -->
                 <div *ngIf="job.isChange">
@@ -89,11 +89,11 @@
                 </div>
 
 
-                <div *ngIf="job.status==='IN_PROGRESS' && job.employeeId===empId && !showStatus">
+                <div *ngIf="job.status==='IN_PROGRESS' && !showStatus">
                   <button type="button" class="btn btn-sm btn-success" (click)="onComplete(job)">
                     Complete</button>
                   <button type="button" class="btn btn-sm btn-warning" (click)="onAbort(job)">
-                    Cancel</button>
+                    Abort</button>
                 </div>
                 <div *ngIf="job.status==='NOT_STARTED' && !showStatus">
                   <button type="button" class="btn btn-sm btn-primary" (click)="onAllocate(job)">

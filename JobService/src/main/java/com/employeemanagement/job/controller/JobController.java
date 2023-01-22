@@ -21,6 +21,7 @@ import com.employeemanagement.job.payload.request.JobDetail;
 import com.employeemanagement.job.payload.request.UpdateJobDetail;
 import com.employeemanagement.job.repository.JobRepository;
 import com.employeemanagement.job.service.JobService;
+import com.employeemanagement.job.payload.response.MessageResponse;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -64,6 +65,7 @@ public class JobController {
 	@GetMapping("/processJobs/{jobid}/{userid}/{status}/{role}")
 	public ResponseEntity<?> processJob(@PathVariable Long jobid, @PathVariable Long userid,
 			@PathVariable String status,@PathVariable String role){
+		System.out.println("Inside processJob in JobController : userid : "+userid+"jobid :"+jobid+"role :"+role+"status :"+status);
 		if(jobid == null)
 			return ResponseEntity.badRequest().body("Invalid job id.");
 		if(jobService.processJob(jobid,userid,status,role) != null) {

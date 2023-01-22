@@ -222,13 +222,14 @@ public class AuthController {
  		return ResponseEntity.ok(new MessageResponse("Job details updated successfully."));
  	}
  	 
- 	@GetMapping("/processJobs/{jobid}/{userid}/{status}/{role}")
+ 	@GetMapping("/processJobs/{jobid}/{userid}/{role}/{status}")
 	public ResponseEntity<?> processJob(@PathVariable Long jobid, @PathVariable Long userid,
-			@PathVariable String status,@PathVariable String role){
+			@PathVariable String role,@PathVariable String status){
+ 		System.out.println("Inside processJob in AuthController : userid : "+userid+"jobid :"+jobid);
 		if(jobid == null)
 			return ResponseEntity.badRequest().body("Invalid job id.");
-		if(userService.processJob(jobid,userid,status,role) != null) {
-			return ResponseEntity.ok().build();
+		if(userService.processJob(jobid,userid,role,status) != null) {
+			return ResponseEntity.ok(new MessageResponse("Job processed successfully."));
 		}
 		return ResponseEntity.badRequest().body("Job not processed.. ERROR : selected job is not applicable for your role.");
 	}
