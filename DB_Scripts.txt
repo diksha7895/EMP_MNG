@@ -1,0 +1,47 @@
+#create database for EMP_MNG
+
+create database EMP_MNG;
+use EMP_MNG;
+
+#insert scripts for roles
+insert into roles(name) values('ROLE_ADMIN');
+insert into roles(name) values('ROLE_MANAGER');
+insert into roles(name) values('ROLE_TRAINEE');
+insert into roles(name) values('ROLE_TESTER');
+insert into roles(name) values('ROLE_DEVELOPER');
+insert into roles(name) values('ROLE_ENGINEER');
+insert into roles(name) values('ROLE_ANALYST');
+commit;
+
+#insert script : user has admin roles
+Insert into EMP_MNG.user_roles(user_id,role_id) values ('1','1')
+
+#For register user
+{
+  "username": "DikshaG",
+  "firstname": "Diksha",
+  "lastname": "Gupta",
+  "email": "Diksha78@gmail.com",
+  "password": "Diksha@123"
+}
+
+{
+  "username": "striver",
+  "firstname": "Raj",
+  "lastname": "Vikramaditya",
+  "email": "RajStriver88@gmail.com",
+  "password": "Raj@123"
+}
+
+#For Login
+{
+  "username": "DikshaG",
+   "password": "Diksha@123"
+  
+}
+
+{
+  "username": "striver",
+   "password": "Raj@123"
+  
+}
