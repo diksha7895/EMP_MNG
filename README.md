@@ -11,7 +11,7 @@ MySQL Database
 # Angular CLI Installation
 npm install -g @angular/cli
 
-#Swagger Configuration
+# Swagger Configuration
 dependency added in pom.xml
 <dependency>
 <groupId>org.springdoc</groupId>
