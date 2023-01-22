@@ -7,3 +7,6 @@ NPM,
 Maven,
 Embedded Tomcat 9 server,
 MySQL Database
+
+# Angular CLI Installation
+npm install -g @angular/cli
