@@ -1,13 +1,6 @@
 .panel-heading{
     padding : 10px;
 }
-  td, th {
-    vertical-align: middle;
-    text-align: center;
-  }
-  .btn{
-    text-align:center;
-  }
 td,th,table {
     text-align: center;
   }
@@ -20,5 +13,6 @@ table{
     padding: 15px;
 }
 .btn{
-    width:40%
+    text-align:center;
+    width:45%
 }

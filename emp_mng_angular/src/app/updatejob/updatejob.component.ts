@@ -14,7 +14,7 @@ export class UpdatejobComponent implements OnInit {
     starttime: '',
     endtime: '',
     profit: '',
-    applicableRole: null
+    applicableRole: ''
     } ;
     flag = false;
   
@@ -25,15 +25,16 @@ export class UpdatejobComponent implements OnInit {
   isSuccessful = false;
   isUpdateFailed = false;
   errorMessage = '';
-  role = '';
+ // role = '';
   
 
   constructor(private route: ActivatedRoute,private router: Router,private tokenService: TokenStorageService,
     private userService: UserService) { }
 
   ngOnInit() {
-    this.jobid = this.route.snapshot.params['jobid'];
+   // this.jobid = this.route.snapshot.params['jobid'];
     this.id = this.tokenService.getUser().id;
+    console.log('User id is  ' + this.id);
     
   }
 

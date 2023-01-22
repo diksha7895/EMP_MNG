@@ -2,7 +2,7 @@
     <div class="row">
       <div class="col-12">
         <div class="panel-heading">
-            <h3>All Jobs</h3>
+            <h3>All Available Jobs</h3>
         </div>
         <table class="table table-hover">
           <thead class="thead-dark"> 
@@ -18,7 +18,7 @@
             </tr>
           </thead>
           <tbody>
-             <tr *ngFor="let job of jobs;let i= index">
+             <tr *ngFor="let job of sortedList;let i= index">
               <td scope="row">{{i+1}}</td>
               <td scope="row">
                 <div *ngIf="job.isChange">
@@ -71,8 +71,9 @@
                 </div>
               </td>
               <td scope="row" *ngIf="showStatus">{{job.status}}</td> 
-              <td scope="row">
+              <td scope="row" style="width: 15%;" class="text-center">
                 <span>
+                  <!-- for admin role -->
                 <div *ngIf="job.isChange">
                   <button type="button" class="btn btn-sm btn-primary" (click)="updateJobDetails(job.id)">
                     Update</button>
@@ -80,15 +81,15 @@
                     Cancel</button>
                 </div>
 
-                <div *ngIf="!job.isChange">
-                  <button type="button" class="btn btn-sm btn-success" (click)="doEdit(job)">
+                <div *ngIf="!job.isChange && showStatus">
+                  <button type="button" class="btn btn-sm btn-primary" (click)="doEdit(job)">
                     Edit</button>
                   <button type="button" class="btn btn-sm btn-warning" (click)="job.isChange=false">
                     Cancel</button>
                 </div>
 
 
-                <div *ngIf="job.status==='IN_PROGRESS' && job.empid && !showStatus">
+                <div *ngIf="job.status==='IN_PROGRESS' && job.employeeId===empId && !showStatus">
                   <button type="button" class="btn btn-sm btn-success" (click)="onComplete(job)">
                     Complete</button>
                   <button type="button" class="btn btn-sm btn-warning" (click)="onAbort(job)">

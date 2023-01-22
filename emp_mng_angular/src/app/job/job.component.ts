@@ -10,15 +10,15 @@ import { UserService } from '../_services/user.service';
 })
 export class JobComponent implements OnInit {
   content?: string;
-  isUser = false;
-  isAdmin = false;
+  // isUser = false;
+  // isAdmin = false;
   showStatus: boolean = false;
   errorMessage ="";
   showMessage ="";
   currentUserRole : any | undefined;
   currentUser: any;
   empId: any;
-  roles: string[] = [];
+  private roles: string[] = [];
 
   jobs : any[] = [];
   sortedList: any[] = [];
@@ -31,7 +31,8 @@ export class JobComponent implements OnInit {
     applicableRole: '',
     jobStartDate: '',
     jobUpdatedDate: '',
-    empid: '',
+    employeeId: '',
+    status: '',
     jobstarttime: '',
     isChange: false,
     isPresent: false
@@ -61,7 +62,8 @@ updateMessage ="";
     if(this.showStatus){
       this.userService.getAllJobs().subscribe(
             data => {
-              this.isUser=true;
+              console.log(data.body);
+             // this.isUser=true;
               this.sortedList=data;
         },
           err => {
@@ -74,9 +76,11 @@ updateMessage ="";
       else{
         this.userService.getAllJobs().subscribe(
           data => {
-            this.isUser=true;
+            //this.isUser=true;
+            console.log("in else :"+data.body);
             this.jobs = data;
             this.jobs.forEach(item => {
+              console.log(item['status']);
               if(item['status']==='NOT_STARTED' || item['status']==='IN_PROGRESS'){
                 this.sortedList.push(item);
               }
@@ -115,12 +119,12 @@ updateMessage ="";
       data => {
         console.log(data);
         this.isJobUpdated=true;
-        this.updateMessage="User details updated successfully";
+        this.updateMessage="Job details updated successfully";
         setTimeout(() => {
           this.isJobUpdated=false;
           this.updateMessage="";
           window.location.reload();
-        },5000);
+        },3000);
       },
       err => {
         console.log(err);
