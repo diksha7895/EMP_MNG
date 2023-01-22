@@ -46,13 +46,18 @@ public class Job {
 	 @Enumerated(EnumType.STRING)
 	 private Status status;
 	 
+	 @Column(name = "employeeId")
+	 private Long employeeId;
+	 
+	 private LocalTime jobstarttime;
+	 
 	 public Job() {
 			super();
 			// TODO Auto-generated constructor stub
 		}
 
 		public Job(Long id, @NotBlank String jobname, LocalTime starttime, LocalTime endtime, Double profit,
-				String applicableRole, LocalDate jobStartDate, LocalDate jobUpdatedDate, Status status) {
+				String applicableRole, LocalDate jobStartDate, LocalDate jobUpdatedDate, Status status,Long employeeId) {
 			super();
 			this.id = id;
 			this.jobname = jobname;
@@ -63,6 +68,7 @@ public class Job {
 			this.jobStartDate = jobStartDate;
 			this.jobUpdatedDate = jobUpdatedDate;
 			this.status = status;
+			this.employeeId = employeeId;
 		}
 
 	public Long getId() {
@@ -139,12 +145,31 @@ public class Job {
 
 	
 
+	public Long getEmpid() {
+		return employeeId;
+	}
+
+	public void setEmpid(Long empid) {
+		this.employeeId = empid;
+	}
+
+	public LocalTime getJobstarttime() {
+		return jobstarttime;
+	}
+
+	public void setJobstarttime(LocalTime jobstarttime) {
+		this.jobstarttime = jobstarttime;
+	}
+
 	@Override
 	public String toString() {
 		return "Job [id=" + id + ", jobname=" + jobname + ", starttime=" + starttime + ", endtime=" + endtime
 				+ ", profit=" + profit + ", applicableRole=" + applicableRole + ", jobStartDate=" + jobStartDate
-				+ ", jobUpdatedDate=" + jobUpdatedDate + "]";
+				+ ", jobUpdatedDate=" + jobUpdatedDate + ", status=" + status + ", empid=" + employeeId + ", jobstarttime="
+				+ jobstarttime + "]";
 	}
+
+	
 	 
 	 
 	

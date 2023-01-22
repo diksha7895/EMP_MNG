@@ -1,1 +1,112 @@
-<p>job works!</p>
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="panel-heading">
+            <h3>All Jobs</h3>
+        </div>
+        <table class="table table-hover">
+          <thead class="thead-dark"> 
+            <tr>
+              <th scop="col">Sr No.</th>
+              <th scope="col">Job Name</th>
+              <th scope="col">Start Time</th>
+              <th scope="col">End Time</th>
+              <th scope="col">Profit Value</th>
+              <th scope="col">Applicable Role</th>
+              <th scope="col" *ngIf="showStatus">Job Status</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+             <tr *ngFor="let job of jobs;let i= index">
+              <td scope="row">{{i+1}}</td>
+              <td scope="row">
+                <div *ngIf="job.isChange">
+                  <input type="text" [(ngModel)]="updatejob.jobname" placeholder="Enter job name" 
+                  minlength="3" maxlength="20" class="form-control" />
+                </div>
+                <div *ngIf="!job.isChange">
+                  {{job.jobname}}
+                </div>
+              </td>
+              <td scope="row">
+                <div *ngIf="job.isChange">
+                  <input type="text" [(ngModel)]="updatejob.starttime" placeholder="HH:MM" 
+                   class="form-control" />
+                </div>
+                <div *ngIf="!job.isChange">
+                  {{job.starttime}}
+                </div>
+              </td>
+              <td scope="row">
+                <div *ngIf="job.isChange">
+                  <input type="text" [(ngModel)]="updatejob.endtime" placeholder="HH:MM" 
+                   class="form-control" />
+                </div>
+                <div *ngIf="!job.isChange">
+                  {{job.endtime}}
+                </div>
+              </td>
+              <td scope="row">
+                <div *ngIf="job.isChange">
+                  <input type="number" [(ngModel)]="updatejob.profit" placeholder="Enter profit value" 
+                   class="form-control" />
+                </div>
+                <div *ngIf="!job.isChange">
+                  {{job.profit}}
+                </div>
+              </td>
+              <td scope="row">
+                <div *ngIf="job.isChange">
+                  <select name="applicableRole" id="role" placeholder="select role" [(ngModel)]="updatejob.applicableRole">
+                    <option value="trainee">Trainee</option>
+                    <option value="tester">Tester</option>
+                    <option value="developer">Developer</option>
+                    <option value="engineer">Engineer</option>
+                    <option value="analyst">Analyst</option>
+                  </select>
+                </div>
+                <div *ngIf="!job.isChange">
+                  {{job.applicableRole}}
+                </div>
+              </td>
+              <td scope="row" *ngIf="showStatus">{{job.status}}</td> 
+              <td scope="row">
+                <span>
+                <div *ngIf="job.isChange">
+                  <button type="button" class="btn btn-sm btn-primary" (click)="updateJobDetails(job.id)">
+                    Update</button>
+                  <button type="button" class="btn btn-sm btn-warning" (click)="job.isChange=false">
+                    Cancel</button>
+                </div>
+
+                <div *ngIf="!job.isChange">
+                  <button type="button" class="btn btn-sm btn-success" (click)="doEdit(job)">
+                    Edit</button>
+                  <button type="button" class="btn btn-sm btn-warning" (click)="job.isChange=false">
+                    Cancel</button>
+                </div>
+
+
+                <div *ngIf="job.status==='IN_PROGRESS' && job.empid && !showStatus">
+                  <button type="button" class="btn btn-sm btn-success" (click)="onComplete(job)">
+                    Complete</button>
+                  <button type="button" class="btn btn-sm btn-warning" (click)="onAbort(job)">
+                    Cancel</button>
+                </div>
+                <div *ngIf="job.status==='NOT_STARTED' && !showStatus">
+                  <button type="button" class="btn btn-sm btn-primary" (click)="onAllocate(job)">
+                    Start</button>
+                </div>
+                </span>
+              </td>
+               
+            </tr> 
+           
+          
+          </tbody>
+        </table>
+        
+        </div>
+    </div>
+  </div>

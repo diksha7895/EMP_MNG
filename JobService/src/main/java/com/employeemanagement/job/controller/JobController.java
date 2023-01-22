@@ -61,15 +61,15 @@ public class JobController {
 		return ResponseEntity.badRequest().body("Job is not updated.");
 	}
 	
-	@PostMapping("/processJobs/{id}")
-	public ResponseEntity<?> processJobs(@RequestBody JobDetail jobDetail,
-			@PathVariable(value = "id") Long id){
-		if(id == null)
+	@GetMapping("/processJobs/{jobid}/{userid}/{status}/{role}")
+	public ResponseEntity<?> processJob(@PathVariable Long jobid, @PathVariable Long userid,
+			@PathVariable String status,@PathVariable String role){
+		if(jobid == null)
 			return ResponseEntity.badRequest().body("Invalid job id.");
-		if(jobService.processJob(jobDetail,id)) {
+		if(jobService.processJob(jobid,userid,status,role) != null) {
 			return ResponseEntity.ok().build();
 		}
-		return ResponseEntity.badRequest().body("Action failed.. Please try again later.");
+		return ResponseEntity.badRequest().body("Job not processed.. ERROR : selected job not is not applicable for your role.");
 	}
 	
 	

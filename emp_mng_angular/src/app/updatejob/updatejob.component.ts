@@ -4,22 +4,22 @@ import { TokenStorageService } from '../_services/token-storage.service';
 import { UserService } from '../_services/user.service';
 
 @Component({
-  selector: 'app-update-employee',
-  templateUrl: './update-employee.component.html',
-  styleUrls: ['./update-employee.component.css']
+  selector: 'app-updatejob',
+  templateUrl: './updatejob.component.html',
+  styleUrls: ['./updatejob.component.css']
 })
-export class UpdateEmployeeComponent implements OnInit {
-
-  
-  form : any = {
-    firstname: '',
-    lastname: '',
-    email: '',
-    role: null
+export class UpdatejobComponent implements OnInit {
+  updatejob : any = {
+    jobname: '',
+    starttime: '',
+    endtime: '',
+    profit: '',
+    applicableRole: null
     } ;
-
-  userid: any | null = '';
-  id: any | null = '';
+    flag = false;
+  
+   jobid: any | null = '';
+   id: any | null = '';
 
   isUpdateDone = false;
   isSuccessful = false;
@@ -32,31 +32,28 @@ export class UpdateEmployeeComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit() {
-    this.userid = this.route.snapshot.params['userid'];
+    this.jobid = this.route.snapshot.params['jobid'];
     this.id = this.tokenService.getUser().id;
     
-    // this.employeeService.getEmployee(this.employee.empid)
-    //   .subscribe(data => {
-    //     console.log(data)
-    //     this.employee = data;
-    //   }, error => console.log(error));
   }
 
   onSubmit() {
-    this.updateEmployee();    
+    this.updateJob();    
   }
 
-  updateEmployee() {
-    const { firstname, lastname, email, role } = this.form;
+  updateJob() {
+    const { jobname, starttime, endtime, profit, applicableRole } = this.updatejob;
     let roles = [];
-    roles.push(role);
-    this.userService.updateUser(firstname,lastname,email,role,this.userid).subscribe(
+    roles.push(applicableRole);
+    this.userService.updateJob(jobname, starttime, endtime, profit, applicableRole,this.jobid).subscribe(
       response => {
         console.log(response);
+        this.flag=false;
         this.isUpdateDone=true;
         this.isSuccessful=true;
         this.isUpdateFailed=false;
-        this.form = '';
+        this.updatejob = '';
+        this.router.navigate(['jobs']);
       },
       err => {
         console.log(err);
@@ -64,9 +61,10 @@ export class UpdateEmployeeComponent implements OnInit {
         this.isUpdateFailed=true;
         this.isUpdateDone=false;
         this.isSuccessful=false;
+        this.flag=false;
       }
     )
-
+    
   }
-  
+ 
 }

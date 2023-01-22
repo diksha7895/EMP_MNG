@@ -1,0 +1,144 @@
+<div class="col-md-12">
+    <div class="card card-container">
+      
+      <form
+        name="updatejob"
+        (ngSubmit)="f.form.valid && onSubmit()"
+        #f="ngForm"
+        novalidate
+      >
+        <div>
+          <h3> Update Job Detail </h3>
+        </div>
+        
+        <div class="form-group">
+          <label for="jobname">Job Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="jobname"
+            [(ngModel)]="updatejob.jobname"
+            required
+            placeholder="Enter job name"
+            minlength="2"
+            maxlength="15"
+            #jobname="ngModel"
+          />
+          <div class="alert-danger" *ngIf="jobname.errors && f.submitted">
+            <div *ngIf="jobname.errors.required">Job name is required</div>
+            <div *ngIf="jobname.errors.minlength">
+              First name must be at least 2 characters
+            </div>
+            <div *ngIf="jobname.errors.maxlength">
+              First name must be at most 15 characters
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="starttime">Start Time</label>
+          <input
+            type="text"
+            class="form-control"
+            name="starttime"
+            [(ngModel)]="updatejob.starttime"
+            required
+            placeholder="HH:MM"
+            #starttime="ngModel"
+          />
+          <div class="alert-danger" *ngIf="starttime.errors && f.submitted">
+            <div *ngIf="starttime.errors.required">Start time is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="endtime">End Time</label>
+          <input
+            type="text"
+            class="form-control"
+            name="endtime"
+            [(ngModel)]="updatejob.endtime"
+            required
+            placeholder="HH:MM"
+            #endtime="ngModel"
+          />
+          <div class="alert-danger" *ngIf="endtime.errors && f.submitted">
+            <div *ngIf="endtime.errors.required">End time is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+            <label for="profit">Profit Value</label>
+            <input
+              type="number"
+              class="form-control"
+              name="profit"
+              [(ngModel)]="updatejob.profit"
+              required
+              placeholder="Enter profit value"
+              #profit="ngModel"
+            />
+            <div class="alert-danger" *ngIf="profit.errors && f.submitted">
+              <div *ngIf="profit.errors.required">Profit value is required</div>
+            </div>
+          </div>
+        <div class ="form-group">
+          <label for="applicableRole">Applicable Role</label>
+          <div class="applicableRole">
+            <input
+                type="radio"
+                name="applicableRole"
+                value="trainee"
+                [(ngModel)]="updatejob.applicableRole" required
+                #applicableRole="ngModel"
+              /> Trainee </div>
+          <div class="applicableRole">
+              <input
+                type="radio"
+                name="applicableRole"
+                value="tester"
+                [(ngModel)]="updatejob.applicableRole" required
+                #applicableRole="ngModel"
+                /> Tester </div>
+          <div class="applicableRole">
+              <input
+                type="radio"
+                name="applicableRole"
+                value="developer"
+                [(ngModel)]="updatejob.applicableRole" required
+                #applicableRole="ngModel"
+                /> Developer </div>
+          <div class="applicableRole">
+              <input
+                type="radio"
+                name="applicableRole"
+                value="engineer"
+                [(ngModel)]="updatejob.applicableRole" required
+                #applicableRole="ngModel"
+               /> Engineer </div>
+          <div class="applicableRole">
+              <input
+                type="radio"
+                name="applicableRole"
+                value="analyst"
+                [(ngModel)]="updatejob.applicableRole" required
+                #applicableRole="ngModel"
+               /> Analyst </div>     
+            <div class="alert-danger" *ngIf="applicableRole.errors && f.submitted">
+                    <div *ngIf="applicableRole.errors.required">Select role</div>
+                  </div>
+        </div>
+      
+        <div class="form-group">
+          <button class="btn btn-primary btn-block">Save</button>
+        </div>
+        <div class="alert alert-warning" *ngIf="f.submitted && isUpdateFailed">
+          Update failed!<br />{{ errorMessage }}
+        </div>
+    
+      </form>
+  
+      <div class="alert alert-success" *ngIf="isSuccessful">
+        Job updated successfully.
+      </div>
+  
+      
+    </div>
+  </div>

@@ -1,22 +1,31 @@
 <div id="app">
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">emp_mng</a>
+    <a href="#" class="navbar-brand">empJ</a>
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item">
         <a href="/home" class="nav-link" routerLink="home">Home </a>
       </li>
+      <li class="nav-item" *ngIf="showAdminBoard">
+        <a href="/admin" class="nav-link" routerLink="admin">Users</a>
+      </li>
 
       <li class="nav-item" *ngIf="showAdminBoard">
-        <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
+        <a href="/emplist" class="nav-link" routerLink="emplist">AllEmployee</a>
+      </li>
+
+      <li class="nav-item" *ngIf="isLoggedIn && roles?.length">
+        <a href="/jobs" class="nav-link" routerLink="jobs">AllJobs</a>
       </li>
 
       <li class="nav-item" *ngIf="showAdminBoard">
-        <a href="/jobs" class="nav-link" routerLink="jobs">Jobs</a>
+        <a href="/createJob" class="nav-link" routerLink="createJob">AddNewJob</a>
       </li>
 
-      <li class="nav-item" *ngIf="showManagerBoard">
-        <a href="/admin" class="nav-link" routerLink="admin">Employee List </a>
-      </li>
+      
+
+      <!-- <li class="nav-item" *ngIf="isLoggedIn">
+        <a href="/jobs" class="nav-link" routerLink="jobs">AllJobs</a>
+      </li> -->
 
      
     </ul>

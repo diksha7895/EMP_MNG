@@ -20,6 +20,20 @@ public class JobDetail {
 	 private Double profit;
 
 	 private String applicableRole;
+	 
+	 private String status;
+	 
+	 
+
+	public JobDetail(String jobname, LocalTime starttime, LocalTime endtime, Double profit,
+			String applicableRole) {
+		super();
+		this.jobname = jobname;
+		this.starttime = starttime;
+		this.endtime = endtime;
+		this.profit = profit;
+		this.applicableRole = applicableRole;
+	}
 
 	public String getJobname() {
 		return jobname;
@@ -59,6 +73,15 @@ public class JobDetail {
 
 	public void setApplicableRole(String applicableRole) {
 		this.applicableRole = applicableRole;
+	}
+
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override

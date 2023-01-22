@@ -1,5 +1,6 @@
 package com.employeemanagement.user.service;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.employeemanagement.user.model.Role;
 import com.employeemanagement.user.model.Roles;
 import com.employeemanagement.user.model.User;
+import com.employeemanagement.user.payload.request.EmployeeDetail;
 import com.employeemanagement.user.payload.request.JobDetail;
 import com.employeemanagement.user.payload.request.RegisterRequest;
 import com.employeemanagement.user.payload.request.UpdateUserDetail;
@@ -168,11 +170,9 @@ public class UserService {
 	
 	
 		
-	public Object getAllEmployees() {
-		ResponseEntity<Object> empList = restClient.getAllEmployeeList("/getAllEmployee");
-		if(empList != null)
+	public List<EmployeeDetail> getAllEmployees() {
+		List<EmployeeDetail> empList = restClient.getAllEmployeeList("/EmployeeDetail");
 			return empList;
-		return ("Some error.. Please try again later.");
 	}
 
 	public Object getEmployeeById(Long id) {
@@ -186,7 +186,7 @@ public class UserService {
 	// saving data in employee table at same time when user registers
 	public Object addEmployee(@Valid RegisterRequest registerRequest) throws Exception {
 		System.out.println("Inside addEmployee : {} "+registerRequest);
-		ResponseEntity<String> addedEmployee = restClient.addEmployee("/addEmployee",registerRequest);
+		ResponseEntity<?> addedEmployee = restClient.addEmployee("/addEmployee",registerRequest);
 		if(addedEmployee == null) {
 			return ("Some error.. Please try again later.");	
 		}
@@ -195,7 +195,7 @@ public class UserService {
 	
 	//update user & employee data at same time
 	public Object updateEmployee(UpdateUserDetail userDetail,Long id) throws Exception {
-		ResponseEntity<String> updateEmployee = restClient.updateEmployee("/updateEmployee/"+id, userDetail);
+		ResponseEntity<?> updateEmployee = restClient.updateEmployee("/updateEmployee/"+id, userDetail);
 		if(updateEmployee == null) {
 			return ("Some error.. Please try again later.");
 		}
@@ -209,8 +209,56 @@ public class UserService {
 
 
 	public ResponseEntity<?> createJob(JobDetail jobDetail) throws Exception {
-		//System.out.println("Inside createJob in UserService : {} "+id);
-		ResponseEntity<String> addJob = restClient.createJob("createJob",jobDetail);
+		System.out.println("Inside createJob in UserService : {} "+jobDetail);
+		//setting role for job creation
+		Set<String> strRoles = Collections.singleton(jobDetail.getApplicableRole());
+		//String strRoles = jobDetail.getApplicableRole();
+		System.out.println("jobDetail.getApplicableRole() : "+strRoles);
+		
+		
+		strRoles.forEach(role -> {
+			switch (role) {
+			case "trainee":
+				Optional<Role> traineeRole = roleRepository.findByName(Roles.ROLE_TRAINEE);
+				if(traineeRole.isPresent()) {
+					jobDetail.setApplicableRole(String.valueOf(Roles.ROLE_TRAINEE)); 
+				}
+				
+				break;
+				
+			case "tester":
+				Optional<Role> testerRole = roleRepository.findByName(Roles.ROLE_TESTER);
+				if(testerRole.isPresent()) {
+					jobDetail.setApplicableRole(String.valueOf(Roles.ROLE_TESTER));
+				}
+
+				break;
+			
+			case "developer":
+				Optional<Role> devRole = roleRepository.findByName(Roles.ROLE_DEVELOPER);
+				if(devRole.isPresent()) {
+					jobDetail.setApplicableRole(String.valueOf(Roles.ROLE_DEVELOPER));
+				}
+				break;
+				
+			case "engineer":
+				Optional<Role> erRole = roleRepository.findByName(Roles.ROLE_ENGINEER);
+				if(erRole.isPresent()) {
+					jobDetail.setApplicableRole(String.valueOf(Roles.ROLE_ENGINEER));
+				}
+				break;
+				
+			case "analyst":
+				Optional<Role> analystRole = roleRepository.findByName(Roles.ROLE_ANALYST);
+				if(analystRole.isPresent()) {
+					jobDetail.setApplicableRole(String.valueOf(Roles.ROLE_ANALYST));
+				}
+				break;
+			}
+		
+		});
+		System.out.println("After setting role for create job in UserService : {}"+jobDetail);
+		ResponseEntity<?> addJob = restClient.createJob("createJob",jobDetail);
 		if(addJob == null) {
 			return ResponseEntity.badRequest().body("User not found.");	
 		}
@@ -219,12 +267,76 @@ public class UserService {
 
 
 	public Object modifyJob(@Valid JobDetail jobDetail, Long id) {
-		ResponseEntity<String> updateJob = restClient.modifyJob("modifyJob/"+id, jobDetail);
+		Set<String> strRoles = Collections.singleton(jobDetail.getApplicableRole());
+		
+
+		strRoles.forEach(role -> {
+			switch (role) {
+			case "trainee":
+				Optional<Role> traineeRole = roleRepository.findByName(Roles.ROLE_TRAINEE);
+				if(traineeRole.isPresent()) {
+					jobDetail.setApplicableRole(String.valueOf(Roles.ROLE_TRAINEE)); 
+				}
+				
+				break;
+				
+			case "tester":
+				Optional<Role> testerRole = roleRepository.findByName(Roles.ROLE_TESTER);
+				if(testerRole.isPresent()) {
+					jobDetail.setApplicableRole(String.valueOf(Roles.ROLE_TESTER));
+				}
+
+				break;
+			
+			case "developer":
+				Optional<Role> devRole = roleRepository.findByName(Roles.ROLE_DEVELOPER);
+				if(devRole.isPresent()) {
+					jobDetail.setApplicableRole(String.valueOf(Roles.ROLE_DEVELOPER));
+				}
+				break;
+				
+			case "engineer":
+				Optional<Role> erRole = roleRepository.findByName(Roles.ROLE_ENGINEER);
+				if(erRole.isPresent()) {
+					jobDetail.setApplicableRole(String.valueOf(Roles.ROLE_ENGINEER));
+				}
+				break;
+				
+			case "analyst":
+				Optional<Role> analystRole = roleRepository.findByName(Roles.ROLE_ANALYST);
+				if(analystRole.isPresent()) {
+					jobDetail.setApplicableRole(String.valueOf(Roles.ROLE_ANALYST));
+				}
+				break;
+			}
+		
+		});
+		
+		ResponseEntity<?> updateJob = restClient.modifyJob("modifyJob/"+id, jobDetail);
 		if(updateJob == null) {
 			return ("Some error.. Please try again later.");
 		}
 		return updateJob;
 	}
+
+
+	public List<JobDetail> getAllJobs() {
+		List<JobDetail> jobList = restClient.getAllJobList("/Jobs");
+		return jobList;
+		
+	}
+
+
+	public Object processJob(Long jobid, Long userid, String status, String role) {
+		ResponseEntity<?> processJob = restClient.processJob("processJobs/"+ jobid + "/"+ userid + "/"+ status + "/" + role);
+		if(processJob!=null) {
+			return processJob;
+		}
+		return ResponseEntity.badRequest().body("Job not processed.. ERROR : selected job not is not applicable for your role.");
+		
+	}
+	
+	
 
 
 	

@@ -1,0 +1,110 @@
+<div class="col-md-12">
+    <div class="card card-container">
+        <h3>Add New Job</h3>
+            <form class="form" (ngSubmit)="f.form.valid && onCreate()" #f="ngForm" *ngIf="!isSuccessful" name="createjob">
+                <div class="form-group">
+                    <label for="jobname">Job Name</label> 
+                    <input [(ngModel)]="createjob.jobname" type="text" class="form-control" minlength="3" 
+                        maxlength="20" name="jobname" #jobname='ngModel' placeholder="Enter job name" required>
+                    <div class="alert-danger" *ngIf="jobname.errors && f.submitted">
+                        <div *ngIf="jobname.errors.required">Job name is required</div>
+                        <div *ngIf="jobname.errors.minlength">Job name must be at least 3 characters.</div>
+                        <div *ngIf="jobname.errors.maxlength">Job name must be at most 20 characters.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="starttime">Start Time  </label> 
+                    <input [(ngModel)]="createjob.starttime" type="text" class="form-control" name="=starttime"
+                        #starttime='ngModel' placeholder="HH:MM" required >
+                
+                <div class="alert-danger" *ngIf="starttime.errors && f.submitted">
+                    <div *ngIf="starttime.errors.required">Start time is required</div>
+    
+                </div>
+                </div>
+                <div class="form-group">
+                    <label for="endtime">End Time  </label> 
+                    <input [(ngModel)]="createjob.endtime" type="text" class="form-control" name="=endtime"
+                        #endtime='ngModel' placeholder="HH:MM" required >
+                
+                <div class="alert-danger" *ngIf="endtime.errors && f.submitted">
+                    <div *ngIf="endtime.errors.required">End time is required</div>
+    
+                </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="profit">Profit Value  </label> 
+                    <input [(ngModel)]="createjob.profit" type="number" class="form-control" name="profit"
+                    minlength="3" maxlength="7" placeholder="Enter profit value" #profit="ngModel" required>
+                    <div class="alert-danger" *ngIf="profit.errors && f.submitted">
+                        <div *ngIf="profit.errors.required">Profit value is required</div>
+                        <div *ngIf="profit.errors.minlength">Profit value must contain 3 digit number</div>
+                        <div *ngIf="profit.errors.maxlength">Profit value value is greater.</div>
+                    </div>
+                </div>
+                <div class ="form-group">
+                    <label for="applicableRole">Applicable Roles</label>
+                    <div class="applicableRole">
+                      <input
+                          type="radio"
+                          name="applicableRole"
+                          id="trainee"
+                          value="trainee"
+                          [(ngModel)]="createjob.applicableRole" required
+                          #applicableRole="ngModel"
+                        /> Trainee</div>
+                      <div class="applicableRole">
+                          <input
+                            type="radio"
+                            name="applicableRole"
+                            id="tester"
+                            value="tester"
+                            [(ngModel)]="createjob.applicableRole" required
+                            #applicableRole="ngModel"
+                            /> Tester</div>
+                      <div class="applicableRole">
+                            <input
+                            type="radio"
+                            name="applicableRole"
+                            id="developer"
+                            value="developer"
+                            [(ngModel)]="createjob.applicableRole" required
+                            #applicableRole="ngModel"
+                        /> Developer</div>    
+                      <div class="applicableRole">
+                            <input
+                              type="radio"
+                              name="applicableRole"
+                              id="engineer"
+                              value="engineer"
+                              [(ngModel)]="createjob.applicableRole" required
+                              #applicableRole="ngModel"
+                              /> Engineer</div>  
+                      <div class="applicableRole">
+                            <input
+                            type="radio"
+                            name="applicableRole"
+                            id="analyst"
+                            value="analyst"
+                            [(ngModel)]="createjob.applicableRole" required
+                            #applicableRole="ngModel"
+                            /> Analyst</div>  
+                      <div class="alert-danger" *ngIf="applicableRole.errors && f.submitted">
+                              <div *ngIf="applicableRole.errors.required">Please select role</div>
+                            </div>
+                  </div>
+               
+              
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block">Create Job</button>
+                </div>
+                <div class="alert alert-warning" *ngIf="f.submitted && !isSuccessful">
+                    Job is not created. {{ errorMessage }}
+                </div>
+            </form>
+            <div class="alert alert-success" *ngIf="isSuccessful">
+                Job - {{createjob.jobname}} has created successfully.
+            </div>
+    </div>
+</div>

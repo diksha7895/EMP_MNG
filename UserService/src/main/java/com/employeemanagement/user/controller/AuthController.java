@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.employeemanagement.user.jwt.JwtUtils;
 import com.employeemanagement.user.jwt.UserDetailsImpl;
 import com.employeemanagement.user.model.User;
+import com.employeemanagement.user.payload.request.EmployeeDetail;
 import com.employeemanagement.user.payload.request.JobDetail;
 import com.employeemanagement.user.payload.request.LoginRequest;
 import com.employeemanagement.user.payload.request.RegisterRequest;
@@ -169,11 +170,13 @@ public class AuthController {
 	
 	@GetMapping("/EmployeeDetail")
     public ResponseEntity<?> getAllEmployees() throws Exception{
-       Object employees = userService.getAllEmployees();
-       if(employees == null) {
+		System.out.println("Inside getAllEmployees : ");
+		List<EmployeeDetail> empDetail = userService.getAllEmployees();
+       System.out.println("employees : {}"+empDetail);
+       if(empDetail == null) {
     	   return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
        }
-       return ResponseEntity.of(Optional.of(employees));
+       return ResponseEntity.of(Optional.of(empDetail));
     }
  	
  	 @GetMapping("/EmployeeDetail/{id}")
@@ -187,16 +190,25 @@ public class AuthController {
          return ResponseEntity.of(Optional.of(employee));
      }
  	 
- 	 //for Job module
+ 	 //for Job module services :
  	 @PostMapping("/createJob")
  	 public ResponseEntity<?> createAJob(@RequestBody JobDetail jobDetail) throws Exception{
 		if (jobDetail == null)
 			return ResponseEntity.badRequest().body(new MessageResponse("Wrong input"));	
-	
+		
 		return userService.createJob(jobDetail);
 		
  	 }
  	 
+ 	@GetMapping("/Jobs")
+	public ResponseEntity<?> getAllJobs() throws Exception{
+		List<JobDetail> jobDetail = userService.getAllJobs();
+	       if(jobDetail == null) {
+	    	   return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	       }
+	       return ResponseEntity.of(Optional.of(jobDetail));
+	}
+ 	
  	 @PostMapping("/modifyJob/{id}")
  	public ResponseEntity<?> modifyJob(@Valid @RequestBody JobDetail jobDetail,
  			@PathVariable(value = "id") Long id) throws Exception{
@@ -210,6 +222,17 @@ public class AuthController {
  		return ResponseEntity.ok(new MessageResponse("Job details updated successfully."));
  	}
  	 
+ 	@GetMapping("/processJobs/{jobid}/{userid}/{status}/{role}")
+	public ResponseEntity<?> processJob(@PathVariable Long jobid, @PathVariable Long userid,
+			@PathVariable String status,@PathVariable String role){
+		if(jobid == null)
+			return ResponseEntity.badRequest().body("Invalid job id.");
+		if(userService.processJob(jobid,userid,status,role) != null) {
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.badRequest().body("Job not processed.. ERROR : selected job is not applicable for your role.");
+	}
+	
  	 
  	 
 }

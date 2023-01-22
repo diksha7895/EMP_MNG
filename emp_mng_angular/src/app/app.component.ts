@@ -7,11 +7,14 @@ import { TokenStorageService } from './_services/token-storage.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  private roles: string[] = [];
+  roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false;
-  //showModeratorBoard = false;
-  showManagerBoard = false;
+  showTraineeBoard = false;
+  showTesterBoard = false;
+  showDeveloperBoard = false;
+  showEngineerBoard = false;
+  showAnalystBoard = false;
   username?: string;
 
   constructor(private tokenStorageService: TokenStorageService) { }
@@ -24,9 +27,11 @@ export class AppComponent implements OnInit {
       this.roles = user.roles;
 
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showManagerBoard = this.roles.includes('ROLE_MANAGER');
-     // this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
-
+      this.showTraineeBoard = this.roles.includes('ROLE_TRAINEE');
+      this.showTesterBoard = this.roles.includes('ROLE_TESTER');
+      this.showDeveloperBoard = this.roles.includes('ROLE_DEVELOPER');
+      this.showEngineerBoard = this.roles.includes('ROLE_ENGINEER');
+      this.showAnalystBoard = this.roles.includes('ROLE_ANALYST');
       this.username = user.username;
     }
   }

@@ -1,5 +1,7 @@
 package com.employeemanagement.emp.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,12 +30,14 @@ import com.employeemanagement.emp.payload.response.MessageResponse;
 @RequestMapping("/empmng")
 public class EmployeeController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 		
 		
 		@Autowired
 		EmployeeService employeeService;
+		
 	
-	 	@GetMapping("/getAllEmployee")
+	 	@GetMapping("/EmployeeDetail")
 	    public ResponseEntity<List<Employee>> getAllEmployees() {
 	       List<Employee> employees = employeeService.getAllEmployees();
 	       if(employees.size()<=0) {
@@ -92,4 +96,17 @@ public class EmployeeController {
 	 		}
 	 	}
 	 
+	 	
+	 	 @GetMapping("/updateSalary/{empid}/{salary}")
+	     public ResponseEntity<?> updateSalary(@PathVariable Long empid, @PathVariable Double salary)  {
+	         try {
+	             logger.info("Inside EmployeeController updateSalary---");
+	             MessageResponse m = employeeService.updateSalary(empid,salary);
+	             logger.info(m.getMessage());
+	             return ResponseEntity.ok(new MessageResponse("Employee salary updated successfully!"));
+	         }catch (Exception e){
+	        	 return ResponseEntity.badRequest().body("Something went wrong... salary not updated.");
+	         }
+	     }
+
 }

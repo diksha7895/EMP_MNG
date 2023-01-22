@@ -1,6 +1,7 @@
 package com.employeemanagement.user.payload.request;
 
 import java.time.LocalTime;
+import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
 
@@ -20,6 +21,7 @@ public class JobDetail {
 	 private Double profit;
 
 	 private String applicableRole;
+	// private Set<String> applicableRole;
 
 	public JobDetail() {
 		super();
@@ -76,6 +78,11 @@ public class JobDetail {
 		this.applicableRole = applicableRole;
 	}
 
+	@Override
+	public String toString() {
+		return "JobDetail [jobname=" + jobname + ", starttime=" + starttime + ", endtime=" + endtime + ", profit="
+				+ profit + ", applicableRole=" + applicableRole + "]";
+	}
 	 
 
 }

@@ -9,8 +9,10 @@ import { BoardUserComponent } from './board-user/board-user.component';
 import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
-import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
+import { JobComponent } from './job/job.component';
+import { CreatejobComponent } from './createjob/createjob.component';
+import { UpdatejobComponent } from './updatejob/updatejob.component';
 
 
 const routes: Routes = [
@@ -22,8 +24,10 @@ const routes: Routes = [
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: 'update', component: UpdateEmployeeComponent },
-  { path: 'details/:id', component: EmployeeDetailsComponent },
-  { path: 'employees', component: EmployeeListComponent},
+  { path: 'emplist', component: EmployeeListComponent},
+  { path: 'jobs', component: JobComponent},
+  { path: 'createJob', component: CreatejobComponent},
+  { path: 'modifyJob', component: UpdatejobComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

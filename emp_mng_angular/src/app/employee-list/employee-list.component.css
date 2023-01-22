@@ -1,3 +1,17 @@
 .panel-heading{
-    padding : 20px;
+    padding : 10px;
+}
+td,th,table {
+    text-align: center;
+  }
+table{
+        width: 100%;
+        border-collapse: collapse;
+}
+.thead,.tbody{
+    text-align: center;
+    padding: 15px;
+}
+.btn{
+    width:40%
 }

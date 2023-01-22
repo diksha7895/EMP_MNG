@@ -15,9 +15,10 @@ import { BoardUserComponent } from './board-user/board-user.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
-import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
 import { JobComponent } from './job/job.component';
+import { CreatejobComponent } from './createjob/createjob.component';
+import { UpdatejobComponent } from './updatejob/updatejob.component';
 
 @NgModule({
   declarations: [
@@ -30,9 +31,10 @@ import { JobComponent } from './job/job.component';
     BoardModeratorComponent,
     BoardUserComponent,
     EmployeeListComponent,
-    EmployeeDetailsComponent,
     UpdateEmployeeComponent,
-    JobComponent
+    JobComponent,
+    CreatejobComponent,
+    UpdatejobComponent
   ],
   imports: [
     BrowserModule,

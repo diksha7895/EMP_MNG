@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.employeemanagement.emp.model.Employee;
 import com.employeemanagement.emp.payload.request.EmployeeDetail;
 import com.employeemanagement.emp.payload.request.UpdateEmployeeDetail;
+import com.employeemanagement.emp.payload.response.MessageResponse;
 import com.employeemanagement.emp.repository.EmployeeRepository;
 
 
@@ -94,6 +95,25 @@ public class EmployeeService {
 						return false;
 			}
 		}
+
+		public MessageResponse updateSalary(Long empid, Double salary) {
+			Optional<Employee> employee = employeeRepository.findById(empid);
+			double totalSalary=0;
+			if (employee.isPresent()) {
+				if(employee.get().getSalary()!=0){
+	                 double presentSalary = employee.get().getSalary();
+					 totalSalary  = salary + presentSalary;
+					 employee.get().setSalary(totalSalary);
+				}
+				else{
+					employee.get().setSalary(salary);
+				}
+				employeeRepository.save(employee.get());
+				return new MessageResponse("Employee salary updated successfully");
+		}else {
+			return new MessageResponse("Something went wrong... salary not updated.");
+		}
+	}
 
 		
 	
