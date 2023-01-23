@@ -38,3 +38,9 @@ Go to ur project directory and run the command on cmd :
 – ng g c createjob
 – ng g c employee-list
 - ng g c update-employee
+
+# Create build for angular
+- ng build
+
+# To start angular application
+- ng serve
