@@ -27,3 +27,14 @@ url : http://localhost:8081/swagger-ui/index.html
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/swagger-ui/**", "/v3/api-docs/**","/h2-console/**","/localhost:4200/**");
     }
+	
+# Create angular project "emp_mng_angular".
+ng new emp_mng_angular
+	
+# Create Service & Components using Angular CLI
+Go to ur project directory and run the command on cmd :
+- ng g s user
+– ng g c home
+– ng g c createjob
+– ng g c employee-list
+- ng g c update-employee
