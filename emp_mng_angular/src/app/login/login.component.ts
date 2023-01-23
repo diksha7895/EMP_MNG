@@ -35,10 +35,10 @@ export class LoginComponent implements OnInit {
       data => {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
-
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
+        
+       this.roles = this.tokenStorage.getUser().roles
         this.reloadPage();
       },
       err => {

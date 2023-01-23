@@ -16,7 +16,7 @@
       <div class="form-group">
         <label for="username">Username</label>
         <input
-          type="text"
+          type="text" (keydown.space)="$event.preventDefault();"
           class="form-control"
           name="username"
           [(ngModel)]="form.username"
@@ -38,7 +38,7 @@
       <div class="form-group">
         <label for="password">Password</label>
         <input
-          type="password"
+          type="password" (keydown.space)="$event.preventDefault();"
           class="form-control"
           name="password"
           [(ngModel)]="form.password"
