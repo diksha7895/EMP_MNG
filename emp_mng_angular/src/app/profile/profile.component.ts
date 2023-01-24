@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { UserService } from '../_services/user.service';
 
@@ -7,7 +8,8 @@ import { UserService } from '../_services/user.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription;
   currentUser: any;
   salary: any;
 
@@ -18,7 +20,7 @@ export class ProfileComponent implements OnInit {
     let id= this.currentUser.id;
     console.log("user id: "+id);
 
-    this.service.getEmployeeById(id).subscribe(
+    this.subscription = this.service.getEmployeeById(id).subscribe(
       data => {
         this.salary = data['body'].salary;
       },
@@ -27,4 +29,8 @@ export class ProfileComponent implements OnInit {
       }
     )
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+}
 }

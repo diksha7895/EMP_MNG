@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../_services/auth.service';
 
 @Component({
@@ -7,7 +8,9 @@ import { AuthService } from '../_services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
+
+  private subscription: Subscription = new Subscription;
   
   form: any = {
     firstname: null,
@@ -30,7 +33,7 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     const {firstname, lastname, username, email, password } = this.form;
 
-    this.authService.register( firstname, lastname, username, email, password).subscribe(
+    this.subscription = this.authService.register( firstname, lastname, username, email, password).subscribe(
       data => {
         console.log(data);
         this.isSuccessful = true;
@@ -43,4 +46,9 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+}
+
 }

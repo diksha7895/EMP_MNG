@@ -31,7 +31,7 @@
               </td>
               <td scope="row">
                 <div *ngIf="job.isChange">
-                  <input type="text" [(ngModel)]="updatejob.starttime" placeholder="HH:MM" 
+                  <input type="time" [(ngModel)]="updatejob.starttime" placeholder="HH:MM" 
                    class="form-control" />
                 </div>
                 <div *ngIf="!job.isChange">
@@ -40,7 +40,7 @@
               </td>
               <td scope="row">
                 <div *ngIf="job.isChange">
-                  <input type="text" [(ngModel)]="updatejob.endtime" placeholder="HH:MM" 
+                  <input type="time" [(ngModel)]="updatejob.endtime" placeholder="HH:MM" 
                    class="form-control" />
                 </div>
                 <div *ngIf="!job.isChange">

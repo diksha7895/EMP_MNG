@@ -10,8 +10,8 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
-import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
-import { BoardUserComponent } from './board-user/board-user.component';
+
+
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
@@ -28,8 +28,6 @@ import { UpdatejobComponent } from './updatejob/updatejob.component';
     HomeComponent,
     ProfileComponent,
     BoardAdminComponent,
-    BoardModeratorComponent,
-    BoardUserComponent,
     EmployeeListComponent,
     UpdateEmployeeComponent,
     JobComponent,

@@ -3,9 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const AUTH_API = 'http://localhost:8081/empmng/';
+//const AUTH_API = 'https://cyhf5zo2pi.execute-api.ap-northeast-1.amazonaws.com/UAT/';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'
+  // ,'Access-Control-Allow-Origin':"*",'Access-Control-Allow-Headers':"origin",
+  // 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'
+})
 };
 
 @Injectable({

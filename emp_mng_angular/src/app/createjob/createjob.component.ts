@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { UserService } from '../_services/user.service';
 
 @Component({
@@ -7,7 +8,8 @@ import { UserService } from '../_services/user.service';
   templateUrl: './createjob.component.html',
   styleUrls: ['./createjob.component.css']
 })
-export class CreatejobComponent implements OnInit {
+export class CreatejobComponent implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription;
 
   isSuccessful = false;
   errorMessage = "";
@@ -45,7 +47,7 @@ export class CreatejobComponent implements OnInit {
     // let roles = [];
     // roles.push(applicableRole);
     console.log("OnCreate role:"+applicableRole);
-    this.userService.createJob(jobname,starttime,endtime,profit,applicableRole).subscribe(
+    this.subscription = this.userService.createJob(jobname,starttime,endtime,profit,applicableRole).subscribe(
       data=> {
       this.isSuccessful = true;
        setTimeout(() => {
@@ -60,5 +62,8 @@ export class CreatejobComponent implements OnInit {
     })
   }
   
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+}
 
 }

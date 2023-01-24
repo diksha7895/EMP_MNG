@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { TokenStorageService } from './token-storage.service';
 
 const API_URL = 'http://localhost:8081/empmng/';
-
+//const API_URL = 'https://cyhf5zo2pi.execute-api.ap-northeast-1.amazonaws.com/UAT/';
 
 
 @Injectable({
