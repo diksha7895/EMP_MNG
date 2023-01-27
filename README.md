@@ -39,8 +39,15 @@ Go to ur project directory and run the command on cmd :
 – ng g c employee-list
 - ng g c update-employee
 
+# Create route gurad inside - emp_mng_angular/src/app/_guard
+- ng g guard Auth
+
 # Create build for angular
 - ng build
 
 # To start angular application
 - ng serve
+
+# Create build for backend
+go to project folder directory & run the command on cmd :
+- mvn package
