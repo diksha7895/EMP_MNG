@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { UserService } from '../_services/user.service';
+import { UserService } from '../../_services/user.service';
 
 @Component({
   selector: 'app-home',

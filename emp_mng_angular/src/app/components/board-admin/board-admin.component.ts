@@ -1,13 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../_services/user.service';
+import { Subscription } from 'rxjs';
+import { UserService } from '../../_services/user.service';
 
 @Component({
   selector: 'app-board-admin',
   templateUrl: './board-admin.component.html',
   styleUrls: ['./board-admin.component.css']
 })
-export class BoardAdminComponent implements OnInit {
+export class BoardAdminComponent implements OnInit, OnDestroy {
+
+  private subscription: Subscription = new Subscription;
+  
   content?: string;
 
   isUser = false;
@@ -38,7 +42,7 @@ form: any = {
 
   ngOnInit(): void {
     this.content = "Admin Dashboard";
-    this.userService.getAllUser().subscribe(
+    this.subscription = this.userService.getAllUser().subscribe(
       data => {
         this.isUser=true;
         this.users = data;
@@ -52,6 +56,7 @@ form: any = {
       }
     );
   }
+
 
   doEdit(user : any){
     this.users.forEach(e =>{
@@ -73,7 +78,7 @@ form: any = {
     let roles = [];
     roles.push(role);
 
-    this.userService.updateUser(firstname, lastname, email, roles, userid).subscribe(
+    this.subscription = this.userService.updateUser(firstname, lastname, email, roles, userid).subscribe(
       data => {
         console.log(data);
         this.isUserUpdated=true;
@@ -101,7 +106,7 @@ form: any = {
 
   deleteUser(userid : any){
     const block : any ='Yes';
-    this.userService.deleteUser(userid).subscribe(
+    this.subscription = this.userService.deleteUser(userid).subscribe(
       data => {
           this.isUser = true;
           this.isUserDeleted = true;
@@ -116,4 +121,9 @@ form: any = {
     )
     window.location.reload();
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+}
+
 }

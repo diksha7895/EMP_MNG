@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TokenStorageService } from '../_services/token-storage.service';
-import { UserService } from '../_services/user.service';
+import { Subscription } from 'rxjs';
+import { TokenStorageService } from '../../_services/token-storage.service';
+import { UserService } from '../../_services/user.service';
 
 @Component({
   selector: 'app-updatejob',
   templateUrl: './updatejob.component.html',
   styleUrls: ['./updatejob.component.css']
 })
-export class UpdatejobComponent implements OnInit {
+export class UpdatejobComponent implements OnInit, OnDestroy {
+
+  private subscription: Subscription = new Subscription;
+  
   updatejob : any = {
     jobname: '',
     starttime: '',
@@ -46,7 +50,7 @@ export class UpdatejobComponent implements OnInit {
     const { jobname, starttime, endtime, profit, applicableRole } = this.updatejob;
     let roles = [];
     roles.push(applicableRole);
-    this.userService.updateJob(jobname, starttime, endtime, profit, applicableRole,this.jobid).subscribe(
+    this.subscription = this.userService.updateJob(jobname, starttime, endtime, profit, applicableRole,this.jobid).subscribe(
       response => {
         console.log(response);
         this.flag=false;
@@ -68,4 +72,7 @@ export class UpdatejobComponent implements OnInit {
     
   }
  
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+}
 }

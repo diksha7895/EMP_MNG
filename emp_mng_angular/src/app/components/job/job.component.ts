@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenStorageService } from '../_services/token-storage.service';
-import { UserService } from '../_services/user.service';
+import { Subscription } from 'rxjs';
+import { TokenStorageService } from '../../_services/token-storage.service';
+import { UserService } from '../../_services/user.service';
 
 @Component({
   selector: 'app-job',
   templateUrl: './job.component.html',
   styleUrls: ['./job.component.css']
 })
-export class JobComponent implements OnInit {
+export class JobComponent implements OnInit, OnDestroy {
+
+  private subscription: Subscription = new Subscription;
+  
   content?: string;
   // isUser = false;
   // isAdmin = false;
@@ -63,7 +67,7 @@ updateMessage ="";
     
     //const role = this.currentUserRole;
     if(this.showStatus){
-      this.userService.getAllJobs().subscribe(
+     this.subscription = this.userService.getAllJobs().subscribe(
             data => {
               console.log(data.body);
              // this.isUser=true;
@@ -77,7 +81,7 @@ updateMessage ="";
           )
         }
       else{
-        this.userService.getAllJobs().subscribe(
+        this.subscription = this.userService.getAllJobs().subscribe(
           data => {
             //this.isUser=true;
             console.log("in else :"+data.body);
@@ -119,7 +123,7 @@ updateMessage ="";
       return;
     }
     const{jobname,starttime,endtime,profit,applicableRole}=this.updatejob;
-    this.userService.updateJob(jobname,starttime,endtime,profit,applicableRole,jobid).subscribe(
+    this.subscription = this.userService.updateJob(jobname,starttime,endtime,profit,applicableRole,jobid).subscribe(
       data => {
         console.log(data);
         this.isJobUpdated=true;
@@ -153,7 +157,7 @@ updateMessage ="";
     let role: any = this.currentUser.roles[0];
     let status: string = 'Allocate';
 
-    this.userService.allocateJob(userid, jobid, role, status).subscribe(
+    this.subscription = this.userService.allocateJob(userid, jobid, role, status).subscribe(
       data => {
         console.log(data);
        this.isStarted = true;
@@ -180,7 +184,7 @@ updateMessage ="";
     let role: any = this.currentUser.roles[0];
     let status: string = 'Complete';
 
-    this.userService.completeJob(userid, jobid, role, status).subscribe(
+    this.subscription = this.userService.completeJob(userid, jobid, role, status).subscribe(
       data => {
         console.log(data);
         // alert("Job Completed..")
@@ -208,7 +212,7 @@ updateMessage ="";
     let role: any = this.currentUser.roles[0];
     let status: string = 'Abort';
 
-    this.userService.abortJob(userid, jobid, role, status).subscribe(
+    this.subscription = this.userService.abortJob(userid, jobid, role, status).subscribe(
       data => {
         console.log(data);
         this.isAborted = true;
@@ -225,4 +229,9 @@ updateMessage ="";
     )
 
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
 }

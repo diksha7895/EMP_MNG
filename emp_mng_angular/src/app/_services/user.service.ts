@@ -3,9 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from './token-storage.service';
 
-const API_URL = 'http://localhost:8081/empmng/';
+//const API_URL = 'http://localhost:8081/empmng/';
 //const API_URL = 'https://cyhf5zo2pi.execute-api.ap-northeast-1.amazonaws.com/UAT/';
-
+const API_URL = 'http://emp-mng-lb-322037909.ap-northeast-1.elb.amazonaws.com/empmng/';
 
 @Injectable({
   providedIn: 'root'

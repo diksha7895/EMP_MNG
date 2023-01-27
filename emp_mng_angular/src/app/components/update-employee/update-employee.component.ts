@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TokenStorageService } from '../_services/token-storage.service';
-import { UserService } from '../_services/user.service';
+import { Subscription } from 'rxjs';
+import { TokenStorageService } from '../../_services/token-storage.service';
+import { UserService } from '../../_services/user.service';
 
 @Component({
   selector: 'app-update-employee',
   templateUrl: './update-employee.component.html',
   styleUrls: ['./update-employee.component.css']
 })
-export class UpdateEmployeeComponent implements OnInit {
+export class UpdateEmployeeComponent implements OnInit, OnDestroy {
 
+  private subscription: Subscription = new Subscription;
   
   form : any = {
     firstname: '',
@@ -50,7 +52,7 @@ export class UpdateEmployeeComponent implements OnInit {
     const { firstname, lastname, email, role } = this.form;
     let roles = [];
     roles.push(role);
-    this.userService.updateUser(firstname,lastname,email,role,this.userid).subscribe(
+    this.subscription = this.userService.updateUser(firstname,lastname,email,role,this.userid).subscribe(
       response => {
         console.log(response);
         this.isUpdateDone=true;
@@ -68,5 +70,9 @@ export class UpdateEmployeeComponent implements OnInit {
     )
 
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+}
   
 }
