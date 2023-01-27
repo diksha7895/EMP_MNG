@@ -38,7 +38,8 @@ import com.employeemanagement.user.payload.response.MessageResponse;
 import com.employeemanagement.user.repository.UserRepository;
 import com.employeemanagement.user.service.UserService;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+//@CrossOrigin(origins = {"http://localhost:4200","https://empjob.s3.amazonaws.com"}, maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/empmng")
 public class AuthController {
